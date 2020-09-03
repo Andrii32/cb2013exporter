@@ -16,7 +16,7 @@ ThisBuild / scalacOptions ++= Seq(
 
 lazy val root = (project in file("."))
   .settings(
-    name := "scala-mysql2es",
+    name := "cb2013exporter",
     libraryDependencies += scalaTest % Test,
     libraryDependencies += fs2Core,
     libraryDependencies += doobieCore,
