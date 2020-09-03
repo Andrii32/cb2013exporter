@@ -1,0 +1,26 @@
+# docker-compose -f docker-compose.crunchbase-db.yml up
+version: '2.1'
+
+networks:
+
+  crunchbase-snapshot:
+    name: crunchbase-snapshot
+    driver: bridge
+
+services:
+
+  crunchbase-db:
+    image: mysql:5.6
+    environment:
+      MYSQL_DATABASE: crunchbase2013snapshot
+      MYSQL_USER: username
+      MYSQL_PASSWORD: password
+    command: mysqld --general-log=1 --general-log-file=/var/log/mysql/general-log.log
+    ports:
+      - 127.0.0.1:3306:3306
+    volumes:
+      - ./crunchbase2013db/crunchbase_2013_snapshot_20131212/:/docker-entrypoint-initdb.d/
+      - ./crunchbase2013db/data:/var/lib/mysql/
+      - ./crunchbase2013db/logs:/var/log/mysql/
+    networks:
+      - crunchbase-snapshot
